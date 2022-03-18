@@ -33,28 +33,32 @@ class _AppState extends State<App> {
         appBar: AppBar(
           title: const Text('Udemy Flutter Academind - Assgn 01'),
         ),
-        body: Column(
-          children: [
-            Text(
-              displayText,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 28,
+        body: Container(
+          margin: const EdgeInsets.only(top: 50),
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            children: [
+              Text(
+                displayText,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 28,
+                ),
               ),
-            ),
-            TextField(
-              controller: _controller,
-              onChanged: (text) => updateInput(text),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                updateDisplay(inputText);
-                _controller.clear();
-                setState(() => inputText = '');
-              },
-              child: const Text('Submit'),
-            )
-          ],
+              TextField(
+                controller: _controller,
+                onChanged: (text) => updateInput(text),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  updateDisplay(inputText);
+                  _controller.clear();
+                  setState(() => inputText = '');
+                },
+                child: const Text('Submit'),
+              )
+            ],
+          ),
         ),
       ),
     );
