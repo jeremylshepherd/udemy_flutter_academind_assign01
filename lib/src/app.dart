@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:udemy_flutter_academind_assign01/src/widgets/submit_button.dart';
+import 'widgets/text_control.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -9,8 +11,12 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   String dummy = 'Dummy Display Text';
-  String displayText = 'Dummy Display Text';
+  late String displayText;
   String? inputText;
+
+  _AppState() {
+    displayText = dummy;
+  }
 
   void updateInput(String? input) {
     setState(() {
@@ -19,8 +25,11 @@ class _AppState extends State<App> {
   }
 
   void updateDisplay(String? input) {
+    if (input == null || input.isEmpty) {
+      input = dummy;
+    }
     setState(() {
-      displayText = input ?? dummy;
+      displayText = input!;
     });
   }
 
@@ -36,6 +45,7 @@ class _AppState extends State<App> {
         body: Container(
           margin: const EdgeInsets.only(top: 50),
           padding: const EdgeInsets.all(15),
+          width: double.infinity,
           child: Column(
             children: [
               Text(
@@ -44,18 +54,17 @@ class _AppState extends State<App> {
                   fontWeight: FontWeight.bold,
                   fontSize: 28,
                 ),
+                textAlign: TextAlign.center,
               ),
-              TextField(
+              TextControl(
                 controller: _controller,
-                onChanged: (text) => updateInput(text),
+                updateInputText: updateInput,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  updateDisplay(inputText);
-                  _controller.clear();
-                  setState(() => inputText = '');
-                },
-                child: const Text('Submit'),
+              SubmitButton(
+                updateDisplay: updateDisplay,
+                controller: _controller,
+                inputText: inputText,
+                updateInput: updateInput,
               )
             ],
           ),
